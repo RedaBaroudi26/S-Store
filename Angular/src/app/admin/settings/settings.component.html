@@ -1,0 +1,48 @@
+<app-sidenav></app-sidenav>
+
+<div id="tt-pageContent">
+	<div class="container-indent">
+		<div class="container container-fluid-custom-mobile-padding">
+			<h1 class="tt-title-subpages noborder">SETTING</h1>
+			<div class="tt-shopping-layout">
+				<div class="tt-wrapper">
+					<h3 class="tt-title"> Informations </h3>
+					<div class="tt-table-responsive">
+						<table class="tt-table-shop-02">
+							<tbody *ngIf="user$ | async as admin">
+								<tr>
+									<td>First name:</td>
+									<td> {{ admin?.firstName }} </td>
+								</tr>
+								<tr>
+									<td>last name:</td>
+									<td> {{ admin?.lastName }} </td>
+								</tr>
+								<tr>
+									<td> adresse:</td>
+									<td> {{ admin?.adresse }} </td>
+								</tr>
+								<tr>
+									<td> phone:</td>
+									<td> {{ admin?.phone }} </td>
+								</tr>
+								<tr>
+									<td> country:</td>
+									<td> {{ admin?.country }} </td>
+								</tr>
+								<tr>
+									<td>email :</td>
+									<td> {{ admin?.account?.email }} </td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="tt-shop-btn">
+						<a class="btn-link" [routerLink]="['/admin/editAccountAdmin']"><i class="icon-g-25"></i>EDIT</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

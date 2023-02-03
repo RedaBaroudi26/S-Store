@@ -1,0 +1,72 @@
+
+<app-navbar></app-navbar>
+
+<div class="tt-breadcrumb">
+	<div class="container">
+		<ul>
+			<li><a [routerLink]="['/Home']">Home</a></li>
+			<li>Edit Account</li>
+		</ul>
+	</div>
+</div>
+
+<div id="tt-pageContent">
+	<div class="container-indent">
+		<div class="container container-fluid-custom-mobile-padding">
+			<h1 class="tt-title-subpages noborder">ACCOUNT</h1>
+			<div class="tt-shopping-layout">
+				<div class="tt-wrapper">
+					<div class="form-default">
+						<form [formGroup]="editAccountGroup" (ngSubmit)="Edit(editAccountGroup.value)">
+							<div class="form-group">
+								<label for="shopInputFirstName" class="control-label"> FIRST NAME *</label>
+								<div class="tt-required" *ngIf="firstName.invalid && firstName.touched" style="color : red">* Required </div>
+								<input type="text" class="form-control" id="shopInputFirstName" formControlName="firstName" >
+							</div>
+							<div class="form-group">
+								<label for="shopInputLastName" class="control-label"> LAST NAME *</label>
+								<div class="tt-required" *ngIf="lastName.invalid && lastName.touched" style="color : red">* Required </div>
+								<input type="text" class="form-control" id="shopInputLastName" formControlName="lastName" >
+							</div>
+							<div class="form-group">
+								<label for="shopCompanyName" class="control-label"> COUNTRY * </label>
+								<div class="tt-required" *ngIf="country.invalid && country.touched" style="color : red">* Required </div>
+								<select class="form-control" formControlName="country">
+									<option > Morocco </option>
+									<option > Algerie </option>
+									<option > Tunisie </option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="shopAddress" class="control-label"> ADDRESS </label>
+								<div class="tt-required" *ngIf="adresse.invalid && adresse.touched" style="color : red">* Required </div>
+								<input type="text" class="form-control" id="shopAddress" formControlName="adresse" >
+							</div>
+							<div class="form-group">
+								<label for="shopPhone" class="control-label"> PHONE </label>
+								<div class="tt-required" *ngIf="phone.invalid && phone.touched" style="color : red">* Required </div>
+								<input type="text" class="form-control" id="shopPhone" formControlName="phone" >
+							</div>
+							<div class="form-group">
+								<label for="shopEmail" class="control-label"> EMAIL ADDRESS * </label>
+								<div class="tt-required" *ngIf="email.invalid && email.errors['email'] && email.touched" style="color : red">* Required Form of an Email</div>
+								<input type="text" class="form-control" id="shopEmail" formControlName="email" >
+							</div>
+							<div class="row tt-offset-21">
+								<div class="col-auto">
+									<button type="submit" class="btn" [disabled]="editAccountGroup.invalid"> Save </button>
+								</div>
+								<div class="col-auto align-self-center">
+									or	<a href="#" class="tt-link" [routerLink]="['/account']"> Cancel </a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<app-footer></app-footer>

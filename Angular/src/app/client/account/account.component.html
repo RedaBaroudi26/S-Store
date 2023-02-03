@@ -1,0 +1,55 @@
+<app-navbar></app-navbar>
+
+
+<div class="tt-breadcrumb">
+	<div class="container">
+		<ul>
+			<li><a [routerLink]="['/accueil']" >Home</a></li>
+			<li>Account</li>
+		</ul>
+	</div>
+</div>
+
+<div id="tt-pageContent">
+	<div class="container-indent">
+		<div class="container container-fluid-custom-mobile-padding">
+			<h1 class="tt-title-subpages noborder">ACCOUNT</h1>
+			<div class="tt-shopping-layout">
+				<div class="tt-wrapper">
+					<h3 class="tt-title"> Informations </h3>
+					<div class="tt-table-responsive">
+						<table class="tt-table-shop-02">
+							<tbody>
+								<tr>
+									<td>First Name:</td>
+									<td> {{ user.firstName }} </td>
+								</tr>
+								<tr>
+									<td>Last Name:</td>
+									<td> {{ user.lastName }} </td>
+								</tr>
+								<tr>
+									<td>E-mail:</td>
+									<td> {{ user.account.email }} </td>
+								</tr>
+								<tr>
+									<td>Address :</td>
+									<td>{{ user.adresse }}</td>
+								</tr>
+								<tr>
+									<td>Phone:</td>
+									<td> {{ user.phone }} </td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="tt-shop-btn">
+						<a class="btn-link" [routerLink]="['/editAccount']"><i class="icon-g-25"></i>EDIT</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,275 @@
+<app-navbar></app-navbar>
+
+<div class="tt-breadcrumb">
+	<div class="container">
+		<ul>
+			<li><a [routerLink]="['/Home']">Home</a></li>
+			<li><a [routerLink]="['/products']">Shop</a></li>
+			<li *ngIf="product$ | async as product">{{ product.category.categoryName}}  </li>
+		</ul>
+	</div>
+</div>
+
+<div id="tt-pageContent">
+	<div class="container-indent" *ngIf="product$ | async as product">
+		<!-- mobile product slider  -->
+		<div class="tt-mobile-product-layout visible-xs">
+			<div class="tt-mobile-product-slider arrow-location-center">
+				<div><img data-src="{{getImage(product , 0)}}" alt=""></div>
+			</div>
+		</div>
+		<!-- /mobile product slider  -->
+		<div class="container container-fluid-mobile">
+			<div class="row">
+				<div class="col-6 hidden-xs">
+					<div class="tt-product-vertical-layout">
+						<div class="tt-product-single-img">
+							<div>
+								<img data-src="{{getImage(product , 0)}}" alt="">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="tt-product-single-info">
+						<div class="tt-add-info">
+							<ul>
+								<li><span>SKU:</span> 001</li>
+								<li><span>Availability:</span> {{product?.qtStock}} in Stock</li>
+							</ul>
+						</div>
+						<h1 class="tt-title">{{product?.productName}}</h1>
+						<div class="tt-price">
+							<span class="new-price">{{product?.price | currency }}</span>
+						</div>
+						<div class="tt-review">
+							<div class="tt-rating">
+								<i class="icon-star"></i>
+								<i class="icon-star"></i>
+								<i class="icon-star"></i>
+								<i class="icon-star-half"></i>
+								<i class="icon-star-empty"></i>
+							</div>
+						</div>
+						<div  [hidden]="true" class="tt-wrapper mt-5">
+							<div class="tt-countdown_box_02">
+								<div class="tt-countdown_inner">
+									<div class="tt-countdown"
+										data-date="2018-11-01"
+										data-year="Yrs"
+										data-month="Mths"
+										data-week="Wk"
+										data-day="Day"
+										data-hour="Hrs"
+										data-minute="Min"
+										data-second="Sec"></div>
+								</div>
+							</div>
+						</div>
+						<div class="tt-wrapper">
+							<div class="tt-row-custom-01" [hidden]="isAuth">
+								<div class="col-item">
+									<div class="tt-input-counter style-01">
+										<input type="text" value="1" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" #qte1>
+									</div>
+								</div>
+								<div class="col-item">
+									<a style="color:white" class="btn btn-lg" data-toggle="modal" data-target="#modalAddToCartProduct" (click)="addCommande(product , +qte1.value)"><i class="icon-f-39"> </i>ADD TO CART</a>
+								</div>
+							</div>
+						</div>
+						<div class="tt-wrapper">
+							<div class="tt-add-info">
+								<ul>
+									<li><span>Name :</span> {{product?.productName }} </li>
+									<li><span>Product Type:</span> {{ product?.category?.categoryName }}</li>
+									<li><span>Tag:</span> <a > {{product?.productName}} , {{ product?.category?.categoryName }} </a>.</li>
+								</ul>
+							</div>
+						</div>
+						<div class="tt-collapse-block">
+							<div class="tt-item">
+								<div class="tt-collapse-title">DESCRIPTION : {{ product?.description }}</div>
+								<div class="tt-collapse-content"> 
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-indent wrapper-social-icon">
+		<div class="container">
+			<ul class="tt-social-icon justify-content-center">
+				<li><a class="icon-g-64" href="http://www.facebook.com/"></a></li>
+				<li><a class="icon-h-58" href="http://www.facebook.com/"></a></li>
+				<li><a class="icon-g-66" href="http://www.twitter.com/"></a></li>
+				<li><a class="icon-g-67" href="http://www.google.com/"></a></li>
+				<li><a class="icon-g-70" href="https://instagram.com/"></a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="container-indent">
+		<div class="container container-fluid-custom-mobile-padding" *ngIf=" similarProducts$ | async as similarProducts">
+			<div class="tt-block-title text-left">
+				<h3 class="tt-title-small">RELATED PRODUCT </h3>
+			</div>
+			<div class="row arrow-location-right-top tt-alignment-img tt-layout-product-item" >
+				<div class="col-2 col-md-4 col-lg-3" *ngFor="let product of similarProducts">
+					<div class="tt-product thumbprod-center">
+						<div class="tt-image-box" >
+							<a class="tt-btn-quickview" data-toggle="modal" data-target="#ModalquickView" data-tooltip="Quick View" data-tposition="left" (click)="productSelected = product"></a>
+							<a [routerLink]="['/product',product.idProduct]" >
+								<span class="tt-img"><img data-src="{{getImage(product , 0)}}" alt=""></span>
+								<span class="tt-img-roll-over"><img data-src="{{getImage(product , 1)}}" alt=""></span>
+							</a>
+						</div>
+						<div class="tt-description">
+							<div class="tt-row">
+								<ul class="tt-add-info">
+									<li><a [routerLink]="['/product',product.idProduct]">{{product.category.categoryName}}</a></li>
+								</ul>
+							</div>
+							<h2 class="tt-title"><a [routerLink]="['/product',product.idProduct]">{{product.productName}}</a></h2>
+							<div class="tt-price">
+								{{product.price | currency }}
+							</div>
+							<div class="tt-product-inside-hover">
+								<div class="tt-row-btn">
+									
+								</div>
+								<div class="tt-row-btn">
+									<a  class="tt-btn-quickview" data-toggle="modal" data-target="#ModalquickView" (click)="productSelected = product"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<!-- modal (quickViewModal) -->
+<div class="modal  fade"  id="ModalquickView" tabindex="-1" role="dialog" aria-label="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content ">
+			<div class="modal-header">
+				<button type="button" id="btn1" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon-clear"></span></button>
+			</div>
+			<div class="modal-body">
+				<div class="tt-modal-quickview desctope">
+					<div class="row">
+						<div class="col-12 col-md-5 col-lg-6">
+							<div class="tt-mobile-product-slider arrow-location-center">
+								<div><img src="assets/images/loader.svg" data-src="{{getImage(productSelected , 0)}}" alt=""></div>
+								<div><img src="assets/images/loader.svg" data-src="{{getImage(productSelected , 1)}}" alt=""></div>
+							</div>
+						</div>
+						<div class="col-12 col-md-7 col-lg-6">
+							<div class="tt-product-single-info">
+								<div class="tt-add-info">
+									<ul>
+										<li><span>SKU:</span> 001</li>
+										<li><span>Availability:</span> {{ productSelected?.qtStock }} in Stock</li>
+									</ul>
+								</div>
+								<h2 class="tt-title"> {{ productSelected?.productName}} </h2>
+								<div class="tt-price">
+									<span class="new-price">{{ productSelected?.price | currency }}</span>
+									<span class="old-price"></span>
+								</div>
+								<div class="tt-review">
+									<div class="tt-rating">
+										<i class="icon-star"></i>
+										<i class="icon-star"></i>
+										<i class="icon-star"></i>
+										<i class="icon-star-half"></i>
+										<i class="icon-star-empty"></i>
+									</div>
+								</div>
+								<div class="tt-wrapper">
+								    {{ productSelected?.description }}
+								</div>
+								<div class="tt-wrapper" [hidden]="isAuth" >
+									<div class="tt-row-custom-01">
+										<div class="col-item">
+											<div class="tt-input-counter style-01">
+												<span class="minus-btn"></span>
+												<input type="text" size="5" value="1" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" #qte>
+												<span class="plus-btn"></span>
+											</div>
+										</div>
+										<div class="col-item">
+											<a class="btn btn-lg" id="btn-cart" (click)="addCommande(productSelected , +qte.value )"><i class="icon-f-39"></i>ADD TO CART</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- modal (AddToCartProduct) -->
+<div class="modal  fade"  id="modalAddToCartProduct" tabindex="-1" role="dialog" aria-label="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content ">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon-clear"></span></button>
+			</div>
+			<div class="modal-body">
+				<div class="tt-modal-addtocart mobile">
+					<div class="tt-modal-messages">
+						<i class="icon-f-68"></i> Added to cart successfully!
+					</div>
+					<a href="#" class="btn-link btn-close-popup">CONTINUE SHOPPING</a>
+			        <a class="btn-link" [routerLink]="['/cart']">VIEW CART</a>
+				</div>
+				<div class="tt-modal-addtocart desctope">
+					<div class="row">
+						<div class="col-12 col-lg-6">
+							<div class="tt-modal-messages">
+								<i class="icon-f-68"></i> Added to cart successfully!
+							</div>
+							<div class="tt-modal-product">
+								<div class="tt-img">
+									<img src="assets/images/loader.svg" data-src="{{getImage(productSelected , 0)}}" alt="">
+								</div>
+								<h2 class="tt-title"><a> {{productSelected?.productName}} </a></h2>
+								<div class="tt-qty">
+									QTY: <span>{{ qteAct }}</span>
+								</div>
+							</div>
+							<div class="tt-product-total">
+								<div class="tt-total">
+									TOTAL: <span class="tt-price">{{ productSelected?.price * qteAct | currency }}</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-lg-6">
+							<a href="#" class="tt-cart-total">
+								 + 1 item in your cart
+								<div class="tt-total">
+									TOTAL: <span class="tt-price">{{ productSelected?.price * qteAct | currency }}</span>
+								</div>
+							</a>
+							<a class="btn btn-border btn-close-popup " id="XX">CONTINUE SHOPPING</a>
+							<a [routerLink]="['/cart']" class="btn btn-border" (click)="close()">VIEW CART</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<app-footer></app-footer>

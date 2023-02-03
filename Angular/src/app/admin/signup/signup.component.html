@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="text-center">
+                    <h1>Sign Up</h1>
+                    <h6>register Yourself</h6>
+                </div>
+                <form [formGroup]="signupForm" (ngSubmit)="singUp()">
+                    <div class="mb-3">
+                        <label for="exampleInputName" class="form-label"> first Name </label>
+                        <input formControlName="firstName" type="text" class="form-control" id="exampleInputName" placeholder="first name">
+                        <span class="text-danger" *ngIf="signupForm.controls['firstName'].dirty && signupForm.hasError('required','firstName')">*first Name is required</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputName" class="form-label"> first Name </label>
+                        <input formControlName="lastName" type="text" class="form-control" id="exampleInputName" placeholder="last name">
+                        <span class="text-danger" *ngIf="signupForm.controls['lastName'].dirty && signupForm.hasError('required','lastName')">*last Name is required</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputName" class="form-label"> adresse </label>
+                        <input formControlName="adresse" type="text" class="form-control" id="exampleInputName" placeholder="adresse">
+                        <span class="text-danger" *ngIf="signupForm.controls['adresse'].dirty && signupForm.hasError('required','adresse')">*adresse is required</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputName" class="form-label"> country </label>
+                        <input formControlName="country" type="text" class="form-control" id="exampleInputName" placeholder="country">
+                        <span class="text-danger" *ngIf="signupForm.controls['country'].dirty && signupForm.hasError('required','country')">*country is required</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputName" class="form-label"> phone </label>
+                        <input formControlName="phone" type="text" class="form-control" id="exampleInputName" placeholder="phone">
+                        <span class="text-danger" *ngIf="signupForm.controls['phone'].dirty && signupForm.hasError('required','phone')">*phone is required</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail" class="form-label"> Email address </label>
+                        <input formControlName="email" type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="email">
+                        <small id="emailHelp" class="form-text text-muted"> we'll never share your email with anyone else </small>
+                        <span class="text-danger" *ngIf="signupForm.controls['email'].dirty && signupForm.hasError('required','email')">*email is required</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPass" class="form-label"> Password </label>
+                        <input formControlName="password" type="password" class="form-control" id="exampleInputPass" placeholder="password" >
+                        <span class="text-danger" *ngIf="signupForm.controls['password'].dirty && signupForm.hasError('required','password')">*Password is required</span>
+                    </div>
+                    <button type="submit" [disabled]="!signupForm.valid" class="btn btn-primary" mt-3>Sign up</button>
+                </form>
+                <a style="color: #fff; margin-top:10px" routerLink="/admin/login"> already registered ? click to Login !! </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+<app-sidenav></app-sidenav>
+<div class="container-fluid px-4 ml-4 mt-4"  >
+  <div class="row g-3 my-2" id="s1">
+      <div class=" text-white bg-primary mb-3 ml-5" style="max-width: 18rem;" id="card1">
+        <div class="cardX-header">{{users?.length}}</div>
+        <div class="cardX-body">
+          <h5 class="cardX-title">Clients<i id="fa1" class="fas fa-user fs-1 primary-text border rounded-full secondary-bg p-3"></i></h5>
+        </div>
+      </div>
+     
+      <div class="card text-white bg-success mb-3 ml-5" style="max-width: 18rem;" id="card2">
+        <div class="cardX-header">{{productsLength}}</div>
+      <div class="cardX-body">
+        <h5 class="cardX-title">Products <i id="fa2" class="fas fa-gift fs-1 primary-text border rounded-full secondary-bg p-3"></i></h5>
+      </div>
+    </div>
+
+      <div class="card text-white bg-danger mb-3 ml-5" style="max-width: 18rem;" id="card3">
+        <div class="cardX-header">{{categoriesLength}}</div>
+        <div class="cardX-body">
+          <h5 class="cardX-title">categorys<i id="fa3" class="fas fa-list-alt fs-1 primary-text border rounded-full secondary-bg p-3"></i></h5>
+        </div>
+      </div>
+
+      <div class="card text-white bg-warning mb-3 ml-5" style="max-width: 18rem;" id="card4">
+        <div class="cardX-header">{{commandes?.length}}</div>
+        <div class="cardX-body">
+          <h5 class="cardX-title">Commands <i id="fa4" class="fa fa-terminal fs-1 primary-text border rounded-full secondary-bg p-3"></i></h5>
+        </div>
+      </div>
+
+      <div  class="card text-white bg-info mb-3 ml-5" style="max-width: 18rem; "id= "card5">
+        <div class="cardX-header">35%</div>
+        <div class="cardX-body">
+          <h5 class="cardX-title">Increase<i id="fa5" class="fas fa-chart-line fs-1 primary-text border rounded-full secondary-bg p-3"></i></h5>
+        </div>
+      </div>
+  </div>
+
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-sm-12">
+        <h3 class="text-center">Table Commandes</h3>
+
+        <div class="table">
+          <div class="table-header">
+            <div class="header__item"><a class="filter__link" >id Commande</a></div>
+            <div class="header__item"><a class="filter__link filter__link--number" >product</a></div>
+            <div class="header__item"><a class="filter__link filter__link--number" >date Commande</a></div>
+            <div class="header__item"><a class="filter__link filter__link--number" >quantity</a></div>
+            <div class="header__item"><a class="filter__link filter__link--number" >Total</a></div>
+          </div>
+          <div class="table-content">	
+           	
+              <div class="table-row" *ngFor="let commande of commandes">		
+                <div class="table-data">{{commande.idCommande }}</div>
+                <div class="table-data">{{commande.product.productName}}</div>
+                <div class="table-data">{{commande.dateCommande}}</div>
+                <div class="table-data">{{commande.quantity}}</div>
+                <div class="table-data">{{commande.total}}</div>
+              </div>
+            
+          </div>	
+        </div>
+
+      </div>
+      <div class="col-sm-12 my-5">
+        <h3 class="text-center">Table Clients</h3>
+
+        <div class="table" >
+          <div class="table-header">
+            <div class="header__item"><a  class="filter__link" >Last Name</a></div>
+            <div class="header__item"><a  class="filter__link filter__link--number" >First Name</a></div>
+            <div class="header__item"><a  class="filter__link filter__link--number" >Country</a></div>
+            <div class="header__item"><a  class="filter__link filter__link--number" >Phone</a></div>
+            <div class="header__item"><a  class="filter__link filter__link--number" >Action</a></div>
+          </div>
+          <div class="table-content">	
+            <div class="table-row" *ngFor="let user of users">		
+              <div class="table-data">{{user.lastName}}</div>
+              <div class="table-data">{{user.firstName}}</div>
+              <div class="table-data">{{user.country}}</div>
+              <div class="table-data">{{user.phone}}</div>
+              <div class="table-data"> <button class="btn" (click)="removeClient(user.idUser)"> Remove </button></div>
+            </div>
+          </div>	
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  
+	
+	
+
+
+</div>
+
+
+
+

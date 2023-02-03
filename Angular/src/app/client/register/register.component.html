@@ -1,0 +1,70 @@
+<app-navbar></app-navbar>
+
+
+<div class="tt-breadcrumb">
+	<div class="container">
+		<ul>
+			<li><a [routerLink]="['/Home']">Home</a></li>
+			<li>Create An Account</li>
+		</ul>
+	</div>
+</div>
+<div id="tt-pageContent">
+	<div class="container-indent">
+		<div class="container">
+			<h1 class="tt-title-subpages noborder">CREATE AN ACCOUNT</h1>
+			<div class="tt-login-form">
+				<div class="row justify-content-center">
+					<div class="col-md-8 col-lg-6">
+						<div class="tt-item">
+							<h2 class="tt-title">PERSONAL INFORMATION</h2>
+							<div class="form-default">
+								<form id="contactform" novalidate="novalidate" [formGroup]="newAccountForm" (ngSubmit)="saveAccount(newAccountForm.value)">
+									<div class="form-group">
+										<label for="loginInputName">FIRST NAME *</label>
+										<div *ngIf="firstName.invalid && firstName.touched" class="tt-required" style='color : red'>Required</div>
+										<input type="text" formControlName="firstName" class="form-control" id="loginInputName" placeholder="Enter First Name">
+									</div>
+									<div class="form-group">
+										<label for="loginLastName">LAST NAME *</label>
+										<div *ngIf="lastName.invalid && lastName.touched" class="tt-required" style='color : red'>Required</div>
+										<input type="text" formControlName="lastName" class="form-control" id="loginLastName" placeholder="Enter Last Name">
+									</div>
+
+									<div class="form-group">
+										<label for="loginInputEmail">E-MAIL *</label>
+										<div *ngIf="Email.invalid && Email.errors['email'] && Email.touched" class="tt-required" style='color : red'>Required Email Format</div>
+										<div *ngIf="Email.dirty && existEmail" class="tt-required" style='color : red'>Email already used</div>
+										<input type="text" formControlName="Email" class="form-control" id="loginInputEmail" placeholder="Enter E-mail" (change)="emailFound( newAccountForm.controls['Email'].value )">
+									</div>
+									<div class="form-group">
+										<label for="loginInputPassword">PASSWORD *</label>
+										<div *ngIf="password.invalid && password.errors['minlength'] && password.touched" class="tt-required" style='color : red'> must be more than 7 </div>
+										<input type="password" formControlName="password" class="form-control" id="loginInputPassword" placeholder="Enter Password">
+									</div>
+									<div class="row">
+										<div class="col-auto">
+											<div class="form-group">
+												<button class="btn btn-border"  [disabled]="newAccountForm.invalid" type="submit">CREATE</button>
+											</div>
+										</div>
+										<div class="col-auto align-self-center">
+											<div class="form-group">
+												<ul class="additional-links">
+													<li> or <a [routerLink]="['/Home']" >Return to Store</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<app-footer></app-footer>

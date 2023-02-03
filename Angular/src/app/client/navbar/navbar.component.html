@@ -1,0 +1,236 @@
+<div id="loader-wrapper">
+	<div id="loader">
+		<div class="dot"></div>
+		<div class="dot"></div>
+		<div class="dot"></div>
+		<div class="dot"></div>
+		<div class="dot"></div>
+		<div class="dot"></div>
+		<div class="dot"></div>
+	</div>
+</div>
+
+<header>
+	<!-- tt-mobile menu -->
+	<nav class="panel-menu mobile-main-menu">
+		<ul>
+			<li >
+				<a class="linkNav" href="/Home" [routerLink]="['/Home']" >HOME</a>
+			</li>
+			<li >
+				<a class="linkNav" href="/products" [routerLink]="['/products']" >Products </a>
+			</li>
+		</ul>
+		<div class="mm-navbtn-names">
+			<div class="mm-closebtn">Close</div>
+			<div class="mm-backbtn">Back</div>
+		</div>
+	</nav>
+	<!-- tt-mobile-header -->
+	<div class="tt-mobile-header">
+		<div class="container-fluid">
+			<div class="tt-header-row">
+				<div class="tt-mobile-parent-menu">
+					<div class="tt-menu-toggle">
+						<i class="icon-03"></i>
+					</div>
+				</div>
+				<!-- search -->
+				<div class="tt-mobile-parent-search tt-parent-box"></div>
+				<!-- /search -->
+				<!-- cart -->
+				<div [hidden]="!isAuth" class="tt-mobile-parent-cart tt-parent-box"></div>
+				<!-- /cart -->
+				<!-- account -->
+				<div  class="tt-mobile-parent-account tt-parent-box"></div>
+				<!-- /account -->
+				<!-- currency -->
+				<div class="tt-mobile-parent-multi tt-parent-box"></div>
+				<!-- /currency -->
+			</div>
+		</div>
+		<div class="container-fluid tt-top-line">
+			<div class="row">
+				<div class="tt-logo-container">
+					<!-- mobile logo -->
+					<a class="tt-logo tt-logo-alignment" [routerLink]="['/Home']"><img src="assets/images/custom/logo.png" alt=""></a>
+					<!-- /mobile logo -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- tt-desktop-header -->
+	<div class="tt-desktop-header">
+		<div class="container">
+			<div class="tt-header-holder">
+				<div class="tt-col-obj tt-obj-logo">
+					<!-- logo -->
+					<a class="tt-logo tt-logo-alignment" ><img src="assets/images/custom/logo.png" alt=""></a>
+					<!-- /logo -->
+				</div>
+				<div class="tt-col-obj tt-obj-menu">
+					<!-- tt-menu -->
+					<div class="tt-desctop-parent-menu tt-parent-box">
+						<div class="tt-desctop-menu">
+							<nav>
+								<ul>
+									<li class="dropdown tt-megamenu-col-02">
+										<a class="linkNav" [routerLink]="['/Home']" >HOME</a>										
+									</li>
+									<li class="dropdown tt-megamenu-col-02">
+										<a class="linkNav" [routerLink]="['/products']">SHOP</a>
+										<div class="dropdown-menu">
+											<div class="row tt-col-list">
+												<div class="col">
+													<h6 class="tt-title-submenu"><a >Products</a></h6>
+													<ul class="tt-megamenu-submenu">
+														<li><a [routerLink]="['/products']">All Products</a></li>
+													</ul>
+												</div>
+												<div class="col">
+													<h6 class="tt-title-submenu"><a>Categories</a></h6>
+													<ul class="tt-megamenu-submenu" *ngIf="categories$ | async as categories">
+														<li *ngFor="let category of categories"><a [routerLink]="['/products']" [queryParams]="{filterBy:category.categoryName}" > {{ category.categoryName }} </a></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<!-- /tt-menu -->
+				</div>
+				<div class="tt-col-obj tt-obj-options obj-move-right">
+					<!-- tt-search -->
+					<div class="tt-desctop-parent-search tt-parent-box">
+						<div class="tt-search tt-dropdown-obj">
+							<button class="tt-dropdown-toggle" data-tooltip="Search" data-tposition="bottom">
+								<i class="icon-f-85"></i>
+							</button>
+							<div class="tt-dropdown-menu">
+								<div class="container">
+									<form>
+										<div class="tt-col">
+											<input type="text" class="tt-search-input" placeholder="Search Products..." name="FilterByWord" [(ngModel)]="FilterByWord">
+											<button class="tt-btn-search" type="submit"></button>
+										</div>
+										<div class="tt-col">
+											<button class="tt-btn-close icon-g-80"></button>
+										</div>
+										<div class="tt-info-text">
+											What are you Looking for?
+										</div>
+										<div class="search-results">
+											<ul *ngIf="productsPage$ | async as productsFilterByWord ">
+												<li *ngFor="let product of productsFilterByWord.content ">
+										            <a [routerLink]="['/product',product?.idProduct]">
+										            	<div class="thumbnail"><img src="assets/images/loader.svg" data-src="{{getImage(product , 0)}}" alt=""></div>
+										            	<div class="tt-description">
+										            		<div class="tt-title">{{ product?.productName }} </div>
+										            		<div class="tt-price">
+																<span class="new-price"> {{ product?.price }} </span>
+															</div>
+										            	</div>
+										            </a>
+										        </li>
+											</ul>
+											<button type="button" class="tt-view-all" [routerLink]="['/products']">View all products</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /tt-search -->
+					<!-- tt-cart -->
+					<div [hidden]="!isAuth"  class="tt-desctop-parent-cart tt-parent-box" >
+						<div  class="tt-cart tt-dropdown-obj" data-tooltip="Cart" data-tposition="bottom">
+							<button class="tt-dropdown-toggle">
+								<i class="icon-f-39"></i>
+								<span class="tt-badge-cart">{{ commandes?.length }}</span>
+							</button>
+							<div class="tt-dropdown-menu">
+								<div class="tt-mobile-add">
+									<h6 class="tt-title">SHOPPING CART</h6>
+									<button class="tt-close">Close</button>
+								</div>
+								<div class="tt-dropdown-inner">
+									<div class="tt-cart-layout">
+										<!-- layout emty cart -->
+										 <a *ngIf="commandes?.length == 0" class="tt-cart-empty">
+											<i class="icon-f-39"></i>
+											<p>No Products in the Cart</p>
+										</a>
+										<div class="tt-cart-content" >
+											<div *ngIf="commandes?.length > 0" class="tt-cart-list" >
+												<div class="tt-item" *ngFor="let commande of commandes">
+													<a [routerLink]="['/product',commande.product.idProduct]">
+														<div class="tt-item-img">
+															<img src="assets/images/loader.svg" data-src="{{getImage(commande?.product , 0)}}" alt="">
+														</div>
+														<div class="tt-item-descriptions">
+															<h2 class="tt-title">{{ commande.product.productName }}</h2>
+															<ul class="tt-add-info">
+																<li>Category : {{ commande.product.category.categoryName}}</li>
+															</ul>
+															<div class="tt-quantity">{{ commande.quantity }} X </div> <div class="tt-price"> {{commande.product.price | currency}}</div>
+														</div>
+													</a>	
+												</div>
+											</div>
+											<div class="tt-cart-total-row">
+
+											</div>
+											<div class="tt-cart-btn">
+												<div class="tt-item">
+													<a [routerLink]="['/cart']" class="btn-link-02 tt-hidden-mobile">View Cart</a>
+													<a [routerLink]="['/cart']" class="btn btn-border tt-hidden-desctope">VIEW CART</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /tt-cart -->
+					<!-- tt-account -->
+					<div class="tt-desctop-parent-account tt-parent-box">
+						<div class="tt-account tt-dropdown-obj">
+							<button class="tt-dropdown-toggle"  data-tooltip="My Account" data-tposition="bottom"><i class="icon-f-94"></i></button>
+							<div class="tt-dropdown-menu">
+								<div class="tt-mobile-add">
+									<button class="tt-close">Close</button>
+								</div>
+								<div class="tt-dropdown-inner">
+									<ul>
+									    <li><a  [hidden]="!isAuth" [routerLink]="['/account']" ><i class="icon-f-94"></i>Account</a></li>
+									    <li><a  [hidden]="isAuth"  [routerLink]="['/login']" ><i class="icon-f-76"></i>Sign In</a></li>
+										<li><a  [hidden]="isAuth"  [routerLink]="['/register']"><i class="icon-f-94"></i>Register</a></li>
+									    <li><a class="linkNav" (click)="signOut()"  [hidden]="!isAuth" ><i class="icon-f-77"></i>Sign Out</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /tt-account -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- stuck nav -->
+	<div class="tt-stuck-nav">
+		<div class="container">
+			<div class="tt-header-row ">
+				<div class="tt-stuck-parent-menu"></div>
+				<div class="tt-stuck-parent-search tt-parent-box"></div>
+				<div [hidden]="!isAuth" class="tt-stuck-parent-cart tt-parent-box"></div>
+				<div class="tt-stuck-parent-account tt-parent-box"></div>
+				<div class="tt-stuck-parent-multi tt-parent-box"></div>
+			</div>
+		</div>
+	</div>
+</header>
+

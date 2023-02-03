@@ -1,0 +1,170 @@
+<app-sidenav></app-sidenav>
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+ 
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="pills-show-tab" data-bs-toggle="pill" data-bs-target="#pills-show" type="button" role="tab" aria-controls="pills-show" aria-selected="false">
+      <i id="myicon" class="fa fa-eye" aria-hidden="true"></i>Show Product</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="pills-add-tab" data-bs-toggle="pill" data-bs-target="#pills-add" type="button" role="tab" aria-controls="pills-add" aria-selected="false">
+      <i id="myicon" class="fa fa-plus-circle" aria-hidden="true"></i>Add Product</button>
+  </li>
+  
+</ul>
+
+<div class="tab-content " id="pills-tabContent">
+  <div class="tab-pane fade" id="pills-add" role="tabpanel" aria-labelledby="pills-add-tab" tabindex="0">
+    <form #formProduct="ngForm" (ngSubmit)="postProductDetails()" >
+      <div class="form-group row">
+        <label for="nmp" class="col-sm-2 col-form-label col-form-label-lg">NomProduct</label>
+        <div class="col-sm-10">
+          <input type="text" name="productName" [(ngModel)]="productsObj.productName" class="form-control form-control-lg" id="nmp" placeholder=" product Name" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="desc" class="col-sm-2 col-form-label col-form-label-lg">Description</label>
+        <div class="col-sm-10">
+          <input name="description" [(ngModel)]="productsObj.description" type="text" class="form-control form-control-lg" id="desc" placeholder=" Description" required>
+        </div>
+      </div>
+      <div class="col-auto my-1">
+        <label class="mr-sm-2" for="cat">Category</label>
+        <select class="form-select mr-sm-2" id="cat"  name="idCategory" [(ngModel)]="productsObj.category.idCategory" required >
+          <option value="" disabled selected>Select your option</option>
+            <option  *ngFor="let category of categoryData" [value]="category.idCategory" > {{ category.categoryName }} </option>
+        </select>
+      </div>
+      <div class="col-auto my-1">
+        <label class="mr-sm-2" for="cat">Tva :</label>
+        <select class="form-select mr-sm-2" id="cat"  name="idCategory" [(ngModel)]="productsObj.tva.idTva" required >
+          <option value="" disabled selected>Select your option</option>
+            <option  *ngFor="let tva of TvaData" value="{{tva.idTva}}" > {{ tva.percentage }} </option>
+        </select>
+      </div>
+      <div class="form-group row">
+        <label for="qte" class="col-sm-2 col-form-label col-form-label-lg">Quantité</label>
+        <div class="col-sm-10">
+          <input type="number" name="qtStock" [(ngModel)]="productsObj.qtStock" class="form-control form-control-lg" id="qte" placeholder="Quantité" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="pr" class="col-sm-2 col-form-label col-form-label-lg">Price</label>
+        <div class="col-sm-10">
+          <input type="number" name="price" [(ngModel)]="productsObj.price" class="form-control form-control-lg" id="pr" placeholder="Price" required>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="formFile" class="form-label">Image For the product</label>
+        <input class="form-control" accept="image/*" type="file" id="formFile" (change)="onSelectFile($event)" required>
+      </div>
+      <div class="mb-3">
+        <label for="formFile" class="form-label">Image For the product</label>
+        <input class="form-control" accept="image/*"  type="file" id="formFile" (change)="onSelectFile2($event)" required>
+      </div>
+      <div class="mb-3">
+        <label for="formFile" class="form-label">Image preview</label>
+        <img [src]="imageUrl" *ngIf="imageUrl" height="200px" />
+      </div>
+      <div class="mb-3">
+        <label for="formFile" class="form-label">Image preview</label>
+        <img [src]="imageUrl2" *ngIf="imageUrl2" height="200px" />
+      </div>
+      <button class="btn btn-success" type="submit" id="btn1" [disabled]="formProduct.invalid" ><i id="myicon" class="fa fa-check" aria-hidden="true"></i> Add </button>
+    </form>
+  </div>
+
+
+  <div class="tab-pane fade  show active" id="pills-show" role="tabpanel" aria-labelledby="pills-show-tab" tabindex="0">
+    <table class="table mt-3">
+      <thead>
+        <tr>
+          <th scope="col">Product Id</th>
+          <th scope="col">Nom Product</th>
+          <th scope="col">Description</th>
+          <th scope="col">Category</th>
+          <th scope="col">Quantité</th>
+          <th scope="col">price</th>
+          <th scope="col">tva percentage</th>
+          <th scope="col">Image</th>
+          <th colspan="2" class="text-center">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of productData">
+          <td>{{row.idProduct}}</td>
+          <td>{{row.productName}}</td>
+          <td>{{row.description}}</td>
+          <td>{{row.category.categoryName}}</td>
+          <td>{{row.qtStock}}</td>
+          <td>{{row.price}}</td>
+          <td>{{row.tva.percentage}}</td>
+          <td>
+            <img width="60px" height="60px" src="{{getImage(row)}}"   />
+          </td>
+          <td>
+            <button type="button" class="btn btn-info ml-3" data-bs-toggle="modal" (click)="upProduct = row" data-bs-target="#updateProduct">
+              <i id="myicon" class="fa fa-pencil" aria-hidden="true"></i> Edit
+            </button>
+            </td><td>
+            <button class="btn btn-danger mx-3" (click)="deleteProduct(row)" ><i id="myicon" class="fa fa-trash" aria-hidden="true"></i>Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div class="modal fade" id="updateProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Product</h5>
+        <button type="button" id="btn3" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #updateProduct="ngForm" (ngSubmit)="onEdit()" >
+          <div class="form-group row">
+            <label for="nmp" class="col-sm-2 col-form-label col-form-label-lg">Product Name</label>
+            <div class="col-sm-10">
+              <input type="text" name="productName" [(ngModel)]="upProduct.productName" class="form-control form-control-lg" id="nmp" placeholder=" product Name" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="desc" class="col-sm-2 col-form-label col-form-label-lg">Description</label>
+            <div class="col-sm-10">
+              <input name="description" [(ngModel)]="upProduct.description" type="text" class="form-control form-control-lg" id="desc" placeholder=" Description" required>
+            </div>
+          </div>
+          <div class="col-auto my-1">
+            <label class="mr-sm-2" for="cat">Category</label>
+            <select class="form-select mr-sm-2" id="cat"  name="idCategory" [(ngModel)]="upProduct.category.idCategory" required >
+              <option value="" disabled selected>Select your option</option>
+                <option  *ngFor="let category of categoryData" value="{{category.idCategory}}" > {{ category.categoryName }} </option>
+            </select>
+          </div>
+          <div class="col-auto my-1">
+            <label class="mr-sm-2" for="cat">Tva :</label>
+            <select class="form-select mr-sm-2" id="cat"  name="idCategory" [(ngModel)]="upProduct.tva.idTva" required >
+              <option value="" disabled selected>Select your option</option>
+                <option  *ngFor="let tva of TvaData" value="{{tva.idTva}}" > {{ tva.percentage }} </option>
+            </select>
+          </div>
+          <div class="form-group row">
+            <label for="qte" class="col-sm-2 col-form-label col-form-label-lg">Quantité</label>
+            <div class="col-sm-10">
+              <input type="number" name="qtStock" [(ngModel)]="upProduct.qtStock" class="form-control form-control-lg" id="qte" placeholder="Quantité" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="pr" class="col-sm-2 col-form-label col-form-label-lg">Price</label>
+            <div class="col-sm-10">
+              <input type="number" name="price" [(ngModel)]="upProduct.price" class="form-control form-control-lg" id="pr" placeholder="Price" required>
+            </div>
+          </div>
+          <button class="btn btn-success" type="submit" [disabled]="updateProduct.invalid" ><i id="myicon" class="fa fa-check" aria-hidden="true"></i> Update </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

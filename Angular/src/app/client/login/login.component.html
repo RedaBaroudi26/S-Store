@@ -1,0 +1,71 @@
+<app-navbar></app-navbar>
+
+
+<div class="tt-breadcrumb">
+	<div class="container">
+		<ul>
+			<li><a [routerLink]="['/Home']">Home</a></li>
+			<li>Register</li>
+		</ul>
+	</div>
+</div>
+<div id="tt-pageContent">
+	<div class="container-indent">
+		<div class="container">
+			<h1 class="tt-title-subpages noborder">ALREADY REGISTERED?</h1>
+			<div class="tt-login-form">
+				<div class="row">
+					<div class="col-xs-12 col-md-6">
+						<div class="tt-item">
+							<h2 class="tt-title">NEW CUSTOMER</h2>
+							<p>
+								By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.
+							</p>
+							<div class="form-group">
+								<a [routerLink]="['/register']" class="btn btn-top btn-border">CREATE AN ACCOUNT</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-md-6">
+						<div class="tt-item">
+							<h2 class="tt-title">LOGIN</h2>
+							If you have an account with us, please log in.
+							<div class="form-default form-top">
+								<form id="customer_login" novalidate="novalidate" [formGroup]="LoginGroup" (ngSubmit)="login(LoginGroup.value)">
+									<div class="form-group">
+										<label for="loginInputName"> E-MAIL *</label>
+										<div class="tt-required" *ngIf="email.invalid && email.errors['email'] && email.touched" style="color : red">* Required Form of an Email</div>
+										<input type="text" formControlName="email" class="form-control" id="loginInputName" placeholder="Enter E-mail">
+									</div>
+									<div class="form-group">
+										<label for="loginInputEmail">PASSWORD *</label>
+										<div class="tt-required" *ngIf="password.invalid && password.touched">* Required </div>
+										<input type="password" formControlName="password" class="form-control" id="loginInputEmail" placeholder="Enter Password">
+									</div>
+									<div class="row">
+										<div class="col-auto mr-auto">
+											<div class="form-group">
+												<button class="btn btn-border" type="submit" [disabled]="LoginGroup.invalid">LOGIN</button>
+											</div>
+										</div>
+										<div class="col-auto align-self-end">
+											<div class="form-group">
+												<ul class="additional-links">
+												     
+												</ul>
+											</div>
+										</div>
+									</div>
+								</form>
+								<div [hidden]="error == ''" style="color: red;">{{error}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<app-footer></app-footer>
